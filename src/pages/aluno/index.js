@@ -7,16 +7,10 @@ import * as exampleActions from '../../store/modules/example/actions';
 import { Container } from '../../styles/GlobalStyles';
 import { Paragrafo } from './styled';
 
-export default function Login() {
-  const dispatch = useDispatch();
-  function handleClick(e) {
-    e.preventDefault();
-    dispatch(exampleActions.clicaBotaoRequest());
-  }
-
+export default function Aluno() {
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Aluno</h1>
     </Container>
   );
 }
