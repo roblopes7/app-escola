@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
 
+import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import history from '../../services/history';
 import * as exampleActions from '../../store/modules/example/actions';
@@ -15,10 +16,10 @@ export default function Register() {
   const [nome, setNome] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     let formErrors = false;
 
     if (nome.length < 3 || nome.length > 255) {
@@ -38,19 +39,26 @@ export default function Register() {
 
     if (formErrors) return;
 
+    setIsLoading(true);
+
     try {
-      const response = await axios.post('/users/', { nome, password, email });
+      await axios.post('/users/', { nome, password, email });
       toast.success('Usuário cadastrado');
+      setIsLoading(false);
+
       history.push('/');
     } catch (err) {
       const errors = get(err, 'response.data.errors', []);
 
       errors.map((error) => toast.error(error));
+      setIsLoading(false);
     }
   }
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
+
       <h1>Crie sua conta</h1>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="nome">
