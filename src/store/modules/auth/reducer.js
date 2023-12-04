@@ -20,11 +20,36 @@ export default function (state = initialState, action) {
     }
     case types.LOGIN_FAILURE: {
       const newState = { ...initialState };
+      newState.isLoading = false;
       return newState;
     }
     case types.LOGIN_REQUEST: {
       const newState = { ...state };
       newState.isLoading = true;
+      return newState;
+    }
+    case types.REGISTER_REQUEST: {
+      console.log('atualizando...');
+      const newState = { ...state };
+      newState.isLoading = true;
+      return newState;
+    }
+    case types.REGISTER_FAILURE: {
+      console.log('erro ao tentar atualizar usuário');
+      const newState = { ...state };
+      newState.isLoading = false;
+      return newState;
+    }
+    case types.REGISTER_UPDATED_SUCCESS: {
+      const newState = { ...state };
+      newState.isLoading = false;
+      newState.user.nome = action.payload.nome;
+      newState.user.email = action.payload.email;
+      return newState;
+    }
+    case types.REGISTER_CREATED_SUCCESS: {
+      const newState = { ...state };
+      newState.isLoading = false;
       return newState;
     }
 
