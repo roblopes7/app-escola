@@ -27,6 +27,7 @@ export default function Register() {
   }, [emailStored, id, nomeStored]);
 
   async function handleSubmit(e) {
+    console.log('handleSubmit');
     e.preventDefault();
     let formErrors = false;
 
